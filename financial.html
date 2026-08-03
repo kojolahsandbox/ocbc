@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OCBC - Financial</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocbc-red': '#ED1C24',
+                        'ocbc-gray-bg': '#F8F9FA',
+                        'ocbc-text': '#333333',
+                        'ocbc-muted': '#6B7280',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 2px 8px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #e5e7eb;
+            overscroll-behavior-y: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            max-height: 896px;
+            background-color: #FAFAFA;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 414px) {
+            .mobile-container {
+                height: 100vh;
+                max-height: none;
+                box-shadow: none;
+            }
+            body { background-color: #FAFAFA; }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scan-btn-wrapper {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scan-btn-circle {
+            width: 56px;
+            height: 56px;
+            background-color: #ED1C24;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+            color: white;
+            font-size: 24px;
+            z-index: 50;
+        }
+
+        .scan-btn-bg-cutout {
+            position: absolute;
+            top: -10px;
+            width: 70px;
+            height: 35px;
+            background-color: transparent;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 10px 0 0 #ffffff;
+            z-index: -1;
+        }
+        
+        .superscript {
+            font-size: 0.65em;
+            vertical-align: top;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body class="text-ocbc-text">
+
+    <div class="mobile-container relative">
+        
+        <!-- Fixed Header Area -->
+        <div class="bg-ocbc-red w-full z-30 pt-10 flex-shrink-0">
+            <h1 class="text-white text-center font-semibold text-[15px] mb-4">Financial</h1>
+            
+            <!-- Tabs -->
+            <div class="flex px-4 text-[13px] font-medium">
+                <div class="w-1/3 text-center pb-2.5 border-b-[3px] border-white text-white cursor-pointer">
+                    Savings
+                </div>
+                <div class="w-1/3 text-center pb-2.5 text-white/80 hover:text-white cursor-pointer">
+                    Investment
+                </div>
+                <div class="w-1/3 text-center pb-2.5 text-white/80 hover:text-white cursor-pointer">
+                    Loan
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="bg-white flex justify-between items-center px-4 py-2.5 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2 text-xs font-semibold text-gray-800 cursor-pointer">
+                <i class="fa-regular fa-money-bill-1"></i> Choose Currency
+            </div>
+            <div class="text-xs font-semibold text-gray-800 cursor-pointer">
+                All <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+            </div>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="bg-[#E6EEF6] py-2 px-4 text-center border-b border-gray-200 flex-shrink-0">
+            <p class="text-[10px] text-gray-700">
+                Updated based on indicative rate of 03 Aug 2026. <a href="#" class="font-bold underline text-gray-800">Learn More</a>
+            </p>
+        </div>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-grow overflow-y-auto no-scrollbar pb-28 bg-[#FAFAFA]">
+            
+            <!-- SECTION 1: Saving Account -->
+            <div class="px-4 pt-5 pb-2">
+                <h2 class="font-bold text-[17px] text-gray-900 mb-3">Saving Account</h2>
+                
+                <!-- Total Balance Info -->
+                <div class="flex items-start gap-2.5 mb-4 px-1">
+                    <i class="fa-solid fa-wallet text-xl mt-0.5 text-gray-700"></i>
+                    <div>
+                        <div class="text-[11px] text-gray-400 font-medium mb-0.5">Total Balance in IDR</div>
+                        <div class="font-bold text-sm text-gray-900">IDR 0<span class="superscript font-bold">00</span></div>
+                    </div>
+                </div>
+
+                <!-- Account Card -->
+                <div class="bg-white rounded-xl shadow-card border border-gray-100 p-4 mb-2 cursor-pointer active:bg-gray-50 transition-colors">
+                    
+                    <!-- Card Header -->
+                    <div class="flex justify-between items-start pb-4 border-b border-gray-100 mb-4">
+                        <div>
+                            <div class="font-bold text-[13px] text-gray-800 mb-0.5">Tanda360Plus-Digital</div>
+                            <div class="text-xs text-gray-500 font-medium">6938-1911-0018</div>
+                        </div>
+                        <button class="text-gray-500 hover:text-gray-800 transition-colors p-1" title="Copy Account Number">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-[10px] text-gray-400 font-medium mb-1">Active Balance in IDR</div>
+                            <div class="font-bold text-sm text-gray-900">IDR 283,937,000<span class="superscript font-bold">00</span></div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-ocbc-red text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Savings Plan -->
+            <div class="px-4 pt-4 pb-6">
+                <h2 class="font-bold text-[17px] text-gray-900 mb-3">Savings Plan</h2>
+                
+                <!-- Total Balance Info -->
+                <div class="flex items-start gap-2.5 mb-4 px-1">
+                    <i class="fa-solid fa-stopwatch text-[22px] mt-0.5 text-gray-700"></i>
+                    <div>
+                        <div class="text-[11px] text-gray-400 font-medium mb-0.5">Total Current Balance in IDR</div>
+                        <div class="font-bold text-sm text-gray-900">IDR 200,039,897<span class="superscript font-bold">00</span></div>
+                    </div>
+                </div>
+
+                <!-- Account Card -->
+                <div class="bg-white rounded-xl shadow-card border border-gray-100 p-4 mb-2 cursor-pointer active:bg-gray-50 transition-colors">
+                    
+                    <!-- Card Header -->
+                    <div class="flex justify-between items-start pb-4 border-b border-gray-100 mb-4">
+                        <div>
+                            <div class="font-bold text-[13px] text-gray-800 mb-0.5">Taka FIX Inst Non AS</div>
+                            <div class="text-xs text-gray-500 font-medium">6938-1911-0059</div>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-[10px] text-gray-400 font-medium mb-1">Current Balance in IDR</div>
+                            <div class="font-bold text-sm text-gray-900">IDR 200,039,897<span class="superscript font-bold">00</span></div>
+                            
+                            <!-- Maturity Tag -->
+                            <div class="mt-2 inline-block bg-[#FFF4E5] text-[#F58F29] text-[9px] font-bold px-2 py-1 rounded">
+                                Maturity Date 04 Sep 2026
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-ocbc-red text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation (Fixed) -->
+        <div class="absolute bottom-0 left-0 w-full h-16 bg-white border-t border-gray-200 z-40 flex justify-between items-center px-6">
+
+    <!-- Home -->
+    <a href="#!" class="flex flex-col items-center gap-1 w-12">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span class="text-[10px] font-bold ">Home</span>
+    </a>
+
+    <!-- Financial -->
+    <a href="#!" class="flex flex-col items-center gap-1 w-12 mr-6">
+        <i class="fa-solid text-ocbc-red fa-chart-pie text-gray-400 text-lg"></i>
+        <span class="text-[10px] font-medium text-gray-500 text-ocbc-red">Financial</span>
+    </a>
+
+    <!-- Central Scan Button (Floating) -->
+    <a href="#!" class="scan-btn-wrapper cursor-pointer">
+        <div class="scan-btn-circle relative overflow-hidden">
+            <span class="font-bold text-sm italic tracking-tighter relative z-10">QRIS</span>
+        </div>
+        <div class="scan-btn-bg-cutout"></div>
+        <span class="text-[10px] font-medium text-gray-500 absolute bottom-[-18px]">Scan</span>
+    </a>
+
+    <!-- Rewards -->
+    <a href="#!" class="flex flex-col items-center gap-1 w-12 ml-6">
+        <i class="fa-solid fa-gift text-gray-400 text-lg"></i>
+        <span class="text-[10px] font-medium text-gray-500">Rewards</span>
+    </a>
+
+    <!-- More -->
+    <a href="#!" class="flex flex-col items-center gap-1 w-12">
+        <i class="fa-solid fa-border-all text-gray-400 text-lg"></i>
+        <span class="text-[10px] font-medium text-gray-500">More</span>
+    </a>
+
+    <!-- iOS Home Indicator Line -->
+    <div class="w-1/3 h-1 bg-gray-300 rounded-full absolute bottom-1 left-1/2 transform -translate-x-1/2"></div>
+
+</div>
+
+    </div>
+
+</body>
+</html>
