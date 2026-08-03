@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OCBC Dashboard UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocbc-red': '#ED1C24',
+                        'ocbc-gray': '#F3F4F6',
+                        'ocbc-text': '#333333',
+                        'ocbc-text-light': '#6B7280',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 15px -3px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #e5e7eb; /* Desktop background */
+            overscroll-behavior-y: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 414px; /* Mobile width */
+            height: 100vh;
+            max-height: 896px; /* Mobile height */
+            background-color: #F8F9FA;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 414px) {
+            .mobile-container {
+                height: 100vh;
+                max-height: none;
+                box-shadow: none;
+            }
+            body { background-color: #F8F9FA; }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Top header background with placeholder image */
+        .header-bg {
+            background: linear-gradient(to bottom, #f0f2f5 0%, #F8F9FA 100%);
+            position: relative;
+            background-image: url('https://cms.disway.id/uploads/9be2cf72d9e5485cef2d1cb0c42198a0.JPG');
+            background-size: cover;
+            background-position: center right;
+        }
+
+        .red-circle-decor {
+            position: absolute;
+            top: 40px;
+            left: -40px;
+            width: 80px;
+            height: 160px;
+            background-color: #ED1C24;
+            border-radius: 0 100px 100px 0;
+            z-index: 10;
+        }
+
+        /* Custom bottom nav center button */
+        .scan-btn-wrapper {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scan-btn-circle {
+            width: 56px;
+            height: 56px;
+            background-color: #ED1C24;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            color: white;
+            font-size: 24px;
+            z-index: 50;
+        }
+
+        .scan-btn-bg-cutout {
+            /* Simulates the curved cutout in the navbar */
+            position: absolute;
+            top: -10px;
+            width: 70px;
+            height: 35px;
+            background-color: transparent;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 10px 0 0 #ffffff;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="text-ocbc-text">
+
+    <div class="mobile-container relative">
+        
+        <div class="flex-grow overflow-y-auto no-scrollbar pb-28 relative">
+            
+            <!-- Header Section -->
+            <div class="header-bg pt-12 pb-24 px-4 relative">
+                <!-- Red decor -->
+                <div class="red-circle-decor"></div>
+                
+                <!-- Top Utility Bar -->
+                <div class="relative z-20 flex justify-between items-start mb-6">
+                    <!-- Left Badges -->
+                    <div class="flex items-center gap-2 bg-white/80 backdrop-blur rounded-full px-3 py-1.5 border border-gray-200 shadow-sm text-xs">
+                        <span class="font-semibold text-gray-800">NYALA Fit</span>
+                        <span class="text-gray-300">|</span>
+                        <div class="flex items-center gap-1 text-gray-700">
+                            <i class="fa-solid fa-copyright border border-gray-500 rounded-full text-[8px] p-0.5"></i>
+                            <span class="font-semibold">720</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Icons -->
+                    <div class="flex items-center gap-4 text-gray-600 text-lg">
+                        <i class="fa-regular fa-bell"></i>
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                </div>
+
+                <!-- Warning Text -->
+                <div class="relative z-20 text-xs text-gray-600 max-w-[70%]">
+                    <p>Be wary against digital scam and protect your personal data.</p>
+                    <a href="#" class="text-blue-600 font-medium">Learn More</a>
+                </div>
+            </div>
+
+            <div class="px-4 relative -mt-16 z-30">
+                <div class="bg-white rounded-2xl p-4 shadow-card grid grid-cols-3 gap-y-6">
+                    <!-- Menu Item -->
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-money-bill-transfer text-xl text-gray-700"></i>
+                        <span class="text-[11px] font-medium text-gray-700">Transfer</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-file-invoice-dollar text-xl text-gray-700"></i>
+                        <span class="text-[11px] font-medium text-gray-700">Top Up & Pay</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-seedling text-xl text-gray-700"></i>
+                        <span class="text-[11px] font-medium text-gray-700">Investment</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-coins text-xl text-gray-700 relative">
+                            <i class="fa-solid fa-arrow-right-arrow-left absolute -bottom-1 -right-2 text-[10px] bg-white rounded-full"></i>
+                        </i>
+                        <span class="text-[11px] font-medium text-gray-700">Forex</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-regular fa-square-plus text-xl text-gray-700"></i>
+                        <span class="text-[11px] font-medium text-gray-700">Apply Product</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-grip text-xl text-gray-700"></i>
+                        <span class="text-[11px] font-medium text-gray-700">All Menus</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-4 mt-6">
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex justify-between items-center">
+                    <div>
+                        <div class="text-[11px] text-gray-500 font-medium mb-1">Active Balance - IDR</div>
+                        <div class="font-bold text-lg text-gray-900 transition-all duration-300" id="balance-amount">283,937,000<span class="text-xs align-top">.00</span></div>
+                    </div>
+                    <div class="flex flex-col items-center text-ocbc-red cursor-pointer transition-colors duration-300" onclick="toggleBalance()" id="toggle-btn">
+                        <span class="text-[10px] font-medium mb-1" id="toggle-text">Hide</span>
+                        <i class="fa-solid fa-eye-slash" id="toggle-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-4 mt-6">
+                <h2 class="font-bold text-[15px] mb-3">Foreign Exchange</h2>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-[#7B838C] text-white p-3 flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-sm">Bank Sell Rate</div>
+                            <div class="text-[11px] text-gray-200">Indicative prices in IDR</div>
+                        </div>
+                        <i class="fa-regular fa-circle-question text-lg"></i>
+                    </div>
+                    
+                    <!-- Currency Grid -->
+                    <div class="p-3 grid grid-cols-2 gap-3">
+                        
+                        <!-- USD -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇺🇸</span> USD
+                                </div>
+                                <div class="font-bold text-sm">18,009</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+
+                        <!-- EUR -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇪🇺</span> EUR
+                                </div>
+                                <div class="font-bold text-sm">20,774</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+
+                        <!-- GBP -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇬🇧</span> GBP
+                                </div>
+                                <div class="font-bold text-sm">24,266</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+
+                        <!-- AUD -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇦🇺</span> AUD
+                                </div>
+                                <div class="font-bold text-sm">12,673</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+                        
+                        <!-- HKD -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇭🇰</span> HKD
+                                </div>
+                                <div class="font-bold text-sm">2,305.44</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+                        
+                        <!-- JPY -->
+                        <div class="border border-gray-200 rounded-lg p-2.5 flex justify-between items-center relative">
+                            <div>
+                                <div class="text-[10px] text-gray-500 font-medium mb-1 flex items-center gap-1">
+                                    <span>🇯🇵</span> JPY
+                                </div>
+                                <div class="font-bold text-sm">115.25</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-ocbc-red"></i>
+                        </div>
+
+                    </div>
+                    
+                    <!-- See All -->
+                    <div class="border-t border-gray-100 py-3 text-center">
+                        <a href="#" class="text-blue-600 text-xs font-semibold">See All <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 mb-8">
+                <h2 class="font-bold text-[15px] mb-3 px-4">Things You'd Like</h2>
+                <!-- Horizontal scroll container -->
+                <div class="flex gap-4 overflow-x-auto no-scrollbar px-4 pb-2">
+                    
+                    <!-- Promo Card 1 -->
+                    <div class="min-w-[240px] h-32 rounded-xl bg-gradient-to-br from-pink-100 to-red-50 p-4 relative overflow-hidden flex flex-col justify-between shrink-0 border border-pink-100">
+                        <div class="text-sm font-medium text-gray-800 leading-tight w-2/3 relative z-10">
+                            An easy way to achieve your financial goals with Life Goals
+                        </div>
+                        <a href="#" class="text-blue-600 text-xs font-semibold relative z-10">Get Started</a>
+                        <!-- Decorative bg element placeholder -->
+                        <i class="fa-solid fa-bullseye absolute -bottom-4 -right-4 text-7xl text-red-200 opacity-50 z-0"></i>
+                    </div>
+
+                    <!-- Promo Card 2 -->
+                    <div class="min-w-[240px] h-32 rounded-xl bg-gradient-to-br from-green-50 to-blue-50 p-4 relative overflow-hidden flex flex-col justify-between shrink-0 border border-green-100">
+                        <div class="text-sm font-medium text-gray-800 leading-tight w-2/3 relative z-10">
+                            Discover your financial fitness!
+                        </div>
+                        <a href="#" class="text-blue-600 text-xs font-semibold relative z-10">Find Out Now</a>
+                        <!-- Decorative bg element placeholder -->
+                        <i class="fa-solid fa-file-medical absolute -bottom-2 -right-2 text-7xl text-green-200 opacity-50 z-0"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-16 bg-white border-t border-gray-200 z-40 flex justify-between items-center px-6">
+            
+            <!-- Home -->
+            <div class="flex flex-col items-center gap-1 cursor-pointer w-12">
+                <i class="fa-solid fa-house text-ocbc-red text-lg"></i>
+                <span class="text-[10px] font-bold text-ocbc-red">Home</span>
+            </div>
+
+            <!-- Financial -->
+            <div class="flex flex-col items-center gap-1 cursor-pointer w-12 mr-6">
+                <i class="fa-solid fa-chart-pie text-gray-400 text-lg"></i>
+                <span class="text-[10px] font-medium text-gray-500">Financial</span>
+            </div>
+
+            <!-- Central Scan Button (Floating) -->
+            <div class="scan-btn-wrapper cursor-pointer">
+                <div class="scan-btn-circle relative overflow-hidden">
+                     <span class="font-bold text-sm italic tracking-tighter relative z-10">QRIS</span>
+                </div>
+                <div class="scan-btn-bg-cutout"></div>
+                <span class="text-[10px] font-medium text-gray-500 absolute bottom-[-18px]">Scan</span>
+            </div>
+
+            <!-- Rewards -->
+            <div class="flex flex-col items-center gap-1 cursor-pointer w-12 ml-6">
+                <i class="fa-solid fa-gift text-gray-400 text-lg"></i>
+                <span class="text-[10px] font-medium text-gray-500">Rewards</span>
+            </div>
+
+            <!-- More -->
+            <div class="flex flex-col items-center gap-1 cursor-pointer w-12">
+                <i class="fa-solid fa-border-all text-gray-400 text-lg"></i>
+                <span class="text-[10px] font-medium text-gray-500">More</span>
+            </div>
+            
+            <!-- iOS Home Indicator Line -->
+            <div class="w-1/3 h-1 bg-gray-300 rounded-full absolute bottom-1 left-1/2 transform -translate-x-1/2"></div>
+        </div>
+
+    </div>
+
+    <!-- Script to handle dynamic interactions -->
+    <script>
+        let isBalanceHidden = true; // langsung hidden saat pertama buka
+        const balanceOriginalHTML = '283,937,000<span class="text-xs align-top">.00</span>';
+
+        function toggleBalance() {
+            const balanceEl = document.getElementById('balance-amount');
+            const toggleTextEl = document.getElementById('toggle-text');
+            const toggleIconEl = document.getElementById('toggle-icon');
+            const toggleBtnEl = document.getElementById('toggle-btn');
+
+            if (isBalanceHidden) {
+                // Hide balance
+                balanceEl.innerHTML = '&bull;&bull;&bull;&bull;&bull;&bull;';
+                balanceEl.classList.remove('text-lg');
+                balanceEl.classList.add('text-xl', 'tracking-widest', 'mt-1');
+
+                toggleTextEl.innerText = 'Show';
+                toggleIconEl.classList.remove('fa-eye-slash');
+                toggleIconEl.classList.add('fa-eye');
+
+                toggleBtnEl.classList.remove('text-ocbc-red');
+                toggleBtnEl.classList.add('text-gray-500');
+            } else {
+                // Show balance
+                balanceEl.innerHTML = balanceOriginalHTML;
+                balanceEl.classList.add('text-lg');
+                balanceEl.classList.remove('text-xl', 'tracking-widest', 'mt-1');
+
+                toggleTextEl.innerText = 'Hide';
+                toggleIconEl.classList.remove('fa-eye');
+                toggleIconEl.classList.add('fa-eye-slash');
+
+                toggleBtnEl.classList.add('text-ocbc-red');
+                toggleBtnEl.classList.remove('text-gray-500');
+            }
+
+            isBalanceHidden = !isBalanceHidden;
+        }
+
+        // Jalankan sekali saat halaman selesai dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            toggleBalance();
+        });
+    </script>
+</body>
+</html>
