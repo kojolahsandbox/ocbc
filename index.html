@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OCBC Mobile App UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="OCBC">
+    <link rel="apple-touch-icon" href="/icon-192.jpg">
+
+    <!-- iOS Splash Screens -->
+    <link rel="apple-touch-startup-image" href="/ocbc.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/ocbc.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/ocbc.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/ocbc.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/ocbc.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+  
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocbc-red': '#ED1C24',
+                        'ocbc-dark-blue': '#4A5B69', /* Tombol login bawah */
+                        'ocbc-bg': '#F8F9FA',
+                        'text-primary': '#333333',
+                        'text-secondary': '#666666',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Body styling to center the mobile view on desktop */
+        body {
+            background-color: #e5e7eb; /* Gray background for desktop view */
+            /* Prevent overscroll bouncing on mobile devices */
+            overscroll-behavior-y: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container to simulate mobile device view */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px; /* iPhone Max width */
+            height: 100vh;
+            max-height: 896px; /* iPhone Max height */
+            background-color: #F8F9FA;
+            position: relative;
+            overflow: hidden; /* Prevent content from spilling out of the "phone" */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive adjustments for actual mobile devices */
+        @media (max-width: 414px) {
+            .mobile-container {
+                height: 100vh;
+                max-height: none;
+                box-shadow: none;
+            }
+            body {
+                background-color: #F8F9FA;
+            }
+        }
+
+        /* Hero Image Section - Needs complex gradient overlay to match reference */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 65vh; /* Takes up a significant portion of the screen */
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/08/OCBC_Centre_2%2C_Mar_06.JPG');
+            background-size: cover;
+            background-position: center top;
+        }
+
+        /* The gradient that fades from the image to white at the bottom */
+        .hero-overlay-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%; /* Gradient starts halfway up the image */
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0) 0%, rgba(248, 249, 250, 0.8) 40%, rgba(248, 249, 250, 1) 100%);
+            pointer-events: none;
+        }
+
+        /* Decorative red half-circle on the top left */
+        .red-circle-decor {
+            position: absolute;
+            top: 40px;
+            left: -80px;
+            width: 120px;
+            height: 240px;
+            background-color: #ED1C24;
+            border-radius: 0 150px 150px 0;
+            z-index: 10;
+        }
+        
+        /* Typography for the main promotional text overlay */
+        .main-tagline {
+            position: absolute;
+            bottom: 20%; /* Position relative to the hero section */
+            right: 20px;
+            text-align: right;
+            z-index: 25;
+        }
+
+        .tagline-red {
+            color: #ED1C24;
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .tagline-dark {
+            color: #333333;
+            font-weight: 600;
+            font-size: 1.25rem;
+            line-height: 1.2;
+        }
+
+        /* Icon Grid Container */
+        .bottom-section {
+            background-color: #F8F9FA; /* Matches the bottom of the gradient */
+            flex-grow: 1; /* Takes up remaining space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Individual Icon Button Styling */
+        .icon-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* Remove tap gray box on mobile */
+        }
+
+        .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4A5B69; /* Icon color */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow like in reference */
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .icon-btn-container:active .icon-circle {
+            transform: scale(0.95);
+            background-color: #f3f4f6;
+        }
+
+        .icon-label {
+            font-size: 0.75rem;
+            color: #666666;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Top utility icons (Scanner, Notifications, Language) */
+        .top-utilities {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 30;
+        }
+
+        .top-icon-btn {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-size: 0.875rem;
+        }
+        
+        .top-left-utilities {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 30;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- The central mobile-sized container -->
+    <div class="mobile-container relative">
+        
+        <!-- Scrollable Main Content Area -->
+        <div class="flex-grow overflow-y-auto relative flex flex-col h-full w-full custom-scrollbar">
+            
+            <!-- Red Decorative Circle -->
+            <div class="red-circle-decor"></div>
+
+            <!-- Top Utility Bar Overlay -->
+            <div class="top-left-utilities">
+                <button class="top-icon-btn" aria-label="Scan QR">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+            
+            <div class="top-utilities">
+                <button class="top-icon-btn" aria-label="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+                <button class="text-blue-600 font-semibold text-sm bg-white/50 backdrop-blur-sm px-2 py-1 rounded">
+                    EN
+                </button>
+            </div>
+
+            <!-- Hero Image and Gradient Section -->
+            <div class="hero-section shrink-0">
+                <!-- Bottom gradient to transition into the white background -->
+                <div class="hero-overlay-gradient"></div>
+                
+                <!-- Promotional Text Overlay -->
+                <div class="main-tagline">
+                    <div class="tagline-red">Terus bersama,</div>
+                    <div class="tagline-dark">meningkatkan</div>
+                    <div class="tagline-dark">kualitas hidup.</div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Icons Grid -->
+            <div class="bottom-section px-6 py-6 pb-24">
+                <!-- 3x2 Grid for Action Icons -->
+                <div class="grid grid-cols-3 gap-y-8 gap-x-4 w-full max-w-sm mx-auto">
+                    
+                    <!-- Item 1 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('Transfer')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-money-bill-transfer text-xl"></i>
+                        </div>
+                        <span class="icon-label">Transfer</span>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('Withdraw')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                        </div>
+                        <span class="icon-label">Withdraw</span>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('IB Token PIN')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-mobile-screen-button text-xl"></i>
+                        </div>
+                        <span class="icon-label">IB Token PIN</span>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('e-Money')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-wallet text-xl"></i>
+                        </div>
+                        <span class="icon-label">e-Money</span>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('Scan')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-qrcode text-xl"></i>
+                        </div>
+                        <span class="icon-label">Scan</span>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="icon-btn-container" onclick="handleIconClick('Promotions')">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-tags text-xl"></i>
+                        </div>
+                        <span class="icon-label">Promotions</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Footer: Login Button -->
+        <div class="absolute bottom-0 left-0 w-full bg-ocbc-bg p-4 pb-8 z-40 border-t border-gray-100">
+            <a href="/login.html" class="w-full bg-ocbc-dark-blue text-white font-medium py-3.5 rounded shadow-sm hover:bg-slate-700 active:bg-slate-800 transition duration-150 ease-in-out text-[15px]" onclick="handleLoginClick()">
+                Log in to OCBC Indonesia
+            </a>
+            <!-- iOS Home Indicator Line (simulated) -->
+            <div class="w-1/3 h-1 bg-gray-300 rounded-full mx-auto mt-5 absolute bottom-2 left-1/3"></div>
+        </div>
+
+    </div>
+    <script>
+        // Placeholder function for icon clicks
+        function handleIconClick(actionName) {
+            console.log(`Action triggered: ${actionName}`);
+            // Provide subtle visual feedback or mock navigation here
+            const btn = event.currentTarget.querySelector('.icon-circle');
+            btn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Placeholder function for login button click
+        function handleLoginClick() {
+            console.log('Navigating to Login Screen...');
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = 'Loading...';
+            btn.classList.add('opacity-80');
+            
+            // Simulate network request delay
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-80');
+                // Normally you would redirect here: window.location.href = '/login';
+            }, 800);
+        }
+    </script>
+</body>
+</html>
